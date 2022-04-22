@@ -4,7 +4,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 35m
   name: prometheus
-  namespace: prometheus
+  namespace: monitoring
 spec:
   rules:
   - host: prometheus.sahir.k8s-trial-working-day.atix-training.de
