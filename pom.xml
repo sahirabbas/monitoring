@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ericsson.exilis.test</groupId>
+    <artifactId>pm-test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <parent>
+        <groupId>com.ericsson.msran.test</groupId>
+        <artifactId>mje-test-parent</artifactId>
+        <version>0.0.202</version>
+    </parent>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>15</java.version>
+        <!--<jcat.version>R7B0021</jcat.version>-->
+        <fmp.version>4.3.1</fmp.version>
+        <maven.java.formatter.version>2.21.0</maven.java.formatter.version>
+        <jcat.code.formatted.version>1.0.2</jcat.code.formatted.version>
+        <os.detected.classifier>linux-x86_64</os.detected.classifier>
+        <jackson.version>2.5.2</jackson.version>
+        <kubectl.path>/usr/bin/</kubectl.path>
+        <!--suppress UnresolvedMavenProperty -->
+        <kubectl.config>/home/${env.USER}/.config</kubectl.config>
+        <kubectl.namespace>default</kubectl.namespace>
+        <helm.path>/usr/bin/</helm.path>
+        <helm.user>user</helm.user>
+        <helm.password>password</helm.password>
+        <install.security.services>true</install.security.services>
+        <install.pm.services>true</install.pm.services>
+        <chart.pm.event.exporter>NOT_DEFINED</chart.pm.event.exporter>
+        <chart.pm.event.controller>NOT_DEFINED</chart.pm.event.controller>
+        <chart.pm.service>NOT_DEFINED</chart.pm.service>
+        <chart.pm.service.init>NOT_DEFINED</chart.pm.service.init>
+        <test.release.chart>true</test.release.chart>
+        <!--suppress UnresolvedMavenProperty -->
+        <logdir>/home/${env.USER}</logdir>
+        <tracelevel>DEBUG</tracelevel>
+        <!--suppress UnresolvedMavenProperty -->
+        <functionalTestSuite>${project.resources[0].directory}/testsuites/functionalTestSuite.xml</functionalTestSuite>
+        <!--suppress UnresolvedMavenProperty -->
+        <pmExporterTestSuite>${project.resources[0].directory}/testsuites/pmExporter-microServiceTestSuite.xml</pmExporterTestSuite>
+        <!--suppress UnresolvedMavenProperty -->
+        <pmServiceTestSuite>${project.resources[0].directory}/testsuites/pmService-microServiceTestSuite.xml</pmServiceTestSuite>
+        <!--suppress UnresolvedMavenProperty -->
+        <pmServiceInitTestSuite>${project.resources[0].directory}/testsuites/pmServiceInit-microServiceTestSuite.xml</pmServiceInitTestSuite>
+        <!--suppress UnresolvedMavenProperty -->
+        <pmControllerTestSuite>${project.resources[0].directory}/testsuites/pmController-microServiceTestSuite.xml</pmControllerTestSuite>
+        <!--suppress UnresolvedMavenProperty -->
+        <testChartGenerationSuite>${project.resources[0].directory}/testsuites/generateTestCharts.xml</testChartGenerationSuite>
+    </properties>
+    <dependencies>
+        <!-- JCAT specific dependencies-->
+        <!--
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-core</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-testng-adaptor</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-lightning-logwriter</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-workaround-handler-adaptor</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-configuration-data-adaptor</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-command-stack</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>se.ericsson.jcat</groupId>
+            <artifactId>jcat-fluent-assert-adaptor</artifactId>
+            <version>${jcat.version}</version>
+        </dependency>
+        -->
+
+        <!-- JCAT common libraries-->
+        <!--<dependency>
+            <groupId>com.ericsson.commonlibrary</groupId>
+            <artifactId>common-utilities</artifactId>
+            <version>3.0.5</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.ericsson.commonlibrary</groupId>
+                    <artifactId>remote-cli</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.commonlibrary.netconf</groupId>
+            <artifactId>jcat-commonlibrary-netconf</artifactId>
+            <version>3.0.783</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.commonlibrary</groupId>
+            <artifactId>yang</artifactId>
+            <version>3.0.783</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.commonlibrary</groupId>
+            <artifactId>helm-api</artifactId>
+            <version>0.0.145</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.commonlibrary</groupId>
+            <artifactId>kubectl-api</artifactId>
+            <version>0.1.122</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.commonlibrary</groupId>
+            <artifactId>remote-cli</artifactId>
+            <version>1.9.74</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.ericsson.commonlibrary</groupId>
+            <artifactId>3gpp-pm-xml-lib</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+        <!--&lt;!&ndash; non-ericsson dependencies &ndash;&gt;
+        &lt;!&ndash; json 20220320 foss version: https://bazaar.internal.ericsson.com/b-view-component.php?componentid=1007296 &ndash;&gt;
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20220320</version>
+        </dependency>
+        &lt;!&ndash; Apache LOG4J foss version: https://bazaar.internal.ericsson.com/b-view-component.php?componentid=1005628 &ndash;&gt;
+        <dependency> &lt;!&ndash; slf4j to log4j2 adapter &ndash;&gt;
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        &lt;!&ndash; Apache LOG4J foss version: https://bazaar.internal.ericsson.com/b-view-component.php?componentid=1005628 &ndash;&gt;
+        <dependency> &lt;!&ndash; log4j2 Logging implementation backend &ndash;&gt;
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.17.2</version>
+        </dependency>
+        &lt;!&ndash; awaitility 4.2.0 foss version https://bazaar.internal.ericsson.com/b-view-component.php?componentid=1004010 &ndash;&gt;
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>4.2.0</version>
+            <scope>compile</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>com.ericsson.msran.jcat</groupId>
+            <artifactId>msran-jcat-extension-with-dependencies</artifactId>
+            <version>1.9.3963</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.testng.TestNG</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <executions>
+                    <!--     Test Chart Generation     -->
+                    <execution>
+                        <id>testng-testChart-generation</id>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-Dhelm=${helm.path}</argument>
+                                <argument>-DhelmUser=${helm.user}</argument>
+                                <argument>-DhelmPassword=${helm.password}</argument>
+                                <argument>-Dlogdir=${logdir}</argument>
+                                <argument>-Drm.logging=${tracelevel}</argument>
+                                <argument>-Djcat.logging=${tracelevel}</argument>
+                                <argument>-classpath</argument>
+                                <classpath />
+                                <argument>org.testng.TestNG</argument>
+                                <argument>${testChartGenerationSuite}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!--    PM Event exporter  tests            -->
+                    <execution>
+                        <id>testng-pmExporter-microServiceTest</id>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-Dkubectl=${kubectl.path}</argument>
+                                <argument>-Dconfig=${kubectl.config}</argument>
+                                <argument>-Dnamespace=${kubectl.namespace}</argument>
+                                <argument>-Dhelm=${helm.path}</argument>
+                                <argument>-DhelmUser=${helm.user}</argument>
+                                <argument>-DhelmPassword=${helm.password}</argument>
+                                <argument>-Dlogdir=${logdir}</argument>
+                                <argument>-Drm.logging=${tracelevel}</argument>
+                                <argument>-Djcat.logging=${tracelevel}</argument>
+                                <argument>-DpmEventExporterChart=${chart.pm.event.exporter}</argument>
+                                <argument>-DinstallSecurityServices=${install.security.services}</argument>
+                                <argument>-classpath</argument>
+                                <classpath />
+                                <argument>org.testng.TestNG</argument>
+                                <argument>${pmExporterTestSuite}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!--     PM Service Tests     -->
+                    <execution>
+                        <id>testng-pmService-microServiceTest</id>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-Dkubectl=${kubectl.path}</argument>
+                                <argument>-Dconfig=${kubectl.config}</argument>
+                                <argument>-Dnamespace=${kubectl.namespace}</argument>
+                                <argument>-Dhelm=${helm.path}</argument>
+                                <argument>-DhelmUser=${helm.user}</argument>
+                                <argument>-DhelmPassword=${helm.password}</argument>
+                                <argument>-Dlogdir=${logdir}</argument>
+                                <argument>-Drm.logging=${tracelevel}</argument>
+                                <argument>-Djcat.logging=${tracelevel}</argument>
+                                <argument>-DisReleaseTest=${test.release.chart}</argument>
+                                <argument>-DpmServiceSecretsThreshold=${pmService.secrets.threshold}</argument>
+                                <argument>-DinstallSecurityServices=${install.security.services}</argument> //enable TLS
+                                <argument>-DpmServiceChart=${chart.pm.service}</argument>
+                                <argument>-classpath</argument>
+                                <classpath />
+                                <argument>org.testng.TestNG</argument>
+                                <argument>${pmServiceTestSuite}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!--     PM Service init Tests     -->
+                    <execution>
+                        <id>testng-pmServiceInit-microServiceTest</id>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-Dkubectl=${kubectl.path}</argument>
+                                <argument>-Dconfig=${kubectl.config}</argument>
+                                <argument>-Dnamespace=${kubectl.namespace}</argument>
+                                <argument>-Dhelm=${helm.path}</argument>
+                                <argument>-DhelmUser=${helm.user}</argument>
+                                <argument>-DhelmPassword=${helm.password}</argument>
+                                <argument>-Dlogdir=${logdir}</argument>
+                                <argument>-Drm.logging=${tracelevel}</argument>
+                                <argument>-Djcat.logging=${tracelevel}</argument>
+                                <argument>-DpmServiceInitChart=${chart.pm.service.init}</argument>
+                                <argument>-DinstallSecurityServices=${install.security.services}</argument>
+                                <argument>-classpath</argument>
+                                <classpath />
+                                <argument>org.testng.TestNG</argument>
+                                <argument>${pmServiceInitTestSuite}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <!--    PM controller  tests            -->
+                    <execution>
+                        <id>testng-pmController-microServiceTest</id>
+                        <configuration>
+                            <executable>java</executable>
+                            <arguments>
+                                <argument>-Dkubectl=${kubectl.path}</argument>
+                                <argument>-Dconfig=${kubectl.config}</argument>
+                                <argument>-Dnamespace=${kubectl.namespace}</argument>
+                                <argument>-Dhelm=${helm.path}</argument>
+                                <argument>-DhelmUser=${helm.user}</argument>
+                                <argument>-DhelmPassword=${helm.password}</argument>
+                                <argument>-Dlogdir=${logdir}</argument>
+                                <argument>-Drm.logging=${tracelevel}</argument>
+                                <argument>-Djcat.logging=${tracelevel}</argument>
+                                <argument>-DpmEventControllerChart=${chart.pm.event.controller}</argument>
+                                <argument>-DinstallSecurityServices=${install.security.services}</argument>
+                                <argument>-DisReleaseTest=${test.release.chart}</argument>
+                                <argument>-classpath</argument>
+                                <classpath />
+                                <argument>org.testng.TestNG</argument>
+                                <argument>${pmControllerTestSuite}</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>${maven.java.formatter.version}</version>
+                <configuration>
+                    <configFile>jcat-code-formatter.xml</configFile>
+                    <lineEnding>LF</lineEnding>
+                    <compilerSource>${java.version}</compilerSource>
+                    <compilerCompliance>${java.version}</compilerCompliance>
+                    <compilerTargetPlatform>${java.version}</compilerTargetPlatform>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>se.ericsson.jcat</groupId>
+                        <artifactId>jcat-common-code-formatter</artifactId>
+                        <version>${jcat.code.formatted.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
